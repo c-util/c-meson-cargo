@@ -1,0 +1,21 @@
+[package]
+name = "r-testlib"
+version = "1.0.0"
+
+description = "Internal rust utilities of Testlib"
+edition = "2021"
+license = "Apache-2.0 OR LGPL-2.1-or-later"
+publish = false
+
+[lib]
+crate-type = ["staticlib"]
+path = "lib.rs"
+
+[dependencies]
+bytes = "1"
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
