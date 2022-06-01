@@ -1,0 +1,27 @@
+name: Continuous Integration
+
+on:
+  push:
+  pull_request:
+  schedule:
+  - cron:  '0 0 * * *'
+
+jobs:
+  ci:
+    name: Basic Test
+    container:
+      image: ghcr.io/bus1/ci-c-util:latest
+    runs-on: ubuntu-latest
+    steps:
+    - name: Fetch Sources
+      uses: actions/checkout@v3
+    - name: Prepare Build
+      working-directory: ./test/basic/
+      run: meson setup build
+    - name: Run Build
+      working-directory: ./test/basic/
+      run: meson compile -v -C build
+    - name: Run Test Suite
+      working-directory: ./test/basic/
+      run: meson test -v -C build
+
