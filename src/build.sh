@@ -20,11 +20,11 @@ set -eo pipefail
 MCARGO_BIN_CARGO=${MCARGO_BIN_CARGO:-"cargo"}
 MCARGO_BIN_CP=${MCARGO_BIN_CP:-"cp"}
 MCARGO_BIN_JQ=${MCARGO_BIN_JQ:-"jq"}
-MCARGO_CONFIG_DIR=${MCARGO_CONFIG_DIR:-"."}
 MCARGO_OFFLINE=${MCARGO_OFFLINE:-"no"}
 MCARGO_PROFILE=${MCARGO_PROFILE:-""}
 MCARGO_TARGET=${MCARGO_TARGET:-""}
 MCARGO_TARGET_DIR=${MCARGO_TARGET_DIR:-""}
+MCARGO_VENDOR_DIR=${MCARGO_VENDOR_DIR:-"."}
 
 MCARGO_OUTPUT_DIR=${1}
 MCARGO_MANIFEST_PATH=${2}
@@ -60,14 +60,12 @@ fi
 
 _MCARGO_ARGS=()
 [[ ${MCARGO_OFFLINE} == "no" ]] || _MCARGO_ARGS+=("--offline")
+[[ ${MCARGO_OFFLINE} == "no" ]] || _MCARGO_ARGS+=("--config=source.crates-io.replace-with=\"vendored-sources\"")
+[[ ${MCARGO_OFFLINE} == "no" ]] || _MCARGO_ARGS+=("--config=source.vendored-sources.directory=\"${MCARGO_VENDOR_DIR}\"")
 [[ -z ${MCARGO_PROFILE} ]] || _MCARGO_ARGS+=("--profile=${MCARGO_PROFILE}")
 [[ -z ${MCARGO_TARGET} ]] || _MCARGO_ARGS+=("--target=${MCARGO_TARGET}")
 
-_MCARGO_CD="."
-[[ ${MCARGO_OFFLINE} == "no" ]] || _MCARGO_CD="${MCARGO_CONFIG_DIR}"
-
 _MCARGO_JSON=$( \
-        cd "${_MCARGO_CD}" && \
         ${MCARGO_BIN_CARGO} \
                 build \
                         --manifest-path "${MCARGO_MANIFEST_PATH}" \

@@ -4,6 +4,6 @@
 
         * Initial release of c-meson-cargo.
 
-        Contributions from: TBD
+        Contributions from: David Rheinsberg
 
-        - Somewhere, YYYY-MM-DD
+        - TBD, YYYY-MM-DD

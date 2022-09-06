@@ -19,7 +19,7 @@ bin_cargo = find_program(
         'cargo',
         native: true,
         required: true,
-        version: '>=1.60',
+        version: '>=1.63',
 )
 bin_cp = find_program(
         'cp',
@@ -88,9 +88,9 @@ target_dict_build = {
                 'MCARGO_BIN_CARGO': bin_cargo.full_path(),
                 'MCARGO_BIN_CP': bin_cp.full_path(),
                 'MCARGO_BIN_JQ': bin_jq.full_path(),
-                'MCARGO_CONFIG_DIR': meson.project_build_root() / 'cargo-config',
                 'MCARGO_OFFLINE': use_vendor,
                 'MCARGO_TARGET_DIR': meson.project_build_root() / 'cargo-target',
+                'MCARGO_VENDOR_DIR': meson.global_source_root() / use_vendordir,
         } + (use_profile == '' ? {} : {
                 'MCARGO_PROFILE': use_profile,
         }) + (use_target == '' ? {} : {
@@ -118,9 +118,3 @@ target_dict_vendor = {
 #
 
 target_cmd_dist = [bin_dist, bin_cargo.full_path(), use_vendordir]
-
-#
-# Subdirectories
-#
-
-subdir('cargo-config/.cargo')

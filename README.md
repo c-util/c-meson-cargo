@@ -27,7 +27,7 @@ providing more user-friendly external module support.
 
 The requirements for this project are:
 
- * `cargo >= 1.60`
+ * `cargo >= 1.63`
  * `coreutils`
  * `jq >= 1.6`
  * `meson >= 0.60`
