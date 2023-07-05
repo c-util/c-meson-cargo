@@ -20,6 +20,7 @@ set -eo pipefail
 MCARGO_BIN_CARGO=${MCARGO_BIN_CARGO:-"cargo"}
 MCARGO_BIN_CP=${MCARGO_BIN_CP:-"cp"}
 MCARGO_BIN_JQ=${MCARGO_BIN_JQ:-"jq"}
+MCARGO_CRATE_TYPE=${MCARGO_CRATE_TYPE:-""}
 MCARGO_OFFLINE=${MCARGO_OFFLINE:-"no"}
 MCARGO_PROFILE=${MCARGO_PROFILE:-""}
 MCARGO_TARGET=${MCARGO_TARGET:-""}
@@ -59,6 +60,7 @@ fi
 #
 
 _MCARGO_ARGS=()
+[[ -z ${MCARGO_CRATE_TYPE} ]] || _MCARGO_ARGS+=("--crate-type=${MCARGO_CRATE_TYPE}")
 [[ ${MCARGO_OFFLINE} == "no" ]] || _MCARGO_ARGS+=("--offline")
 [[ ${MCARGO_OFFLINE} == "no" ]] || _MCARGO_ARGS+=("--config=source.crates-io.replace-with=\"vendored-sources\"")
 [[ ${MCARGO_OFFLINE} == "no" ]] || _MCARGO_ARGS+=("--config=source.vendored-sources.directory=\"${MCARGO_VENDOR_DIR}\"")
@@ -67,7 +69,7 @@ _MCARGO_ARGS=()
 
 _MCARGO_JSON=$( \
         ${MCARGO_BIN_CARGO} \
-                build \
+                rustc \
                         --manifest-path "${MCARGO_MANIFEST_PATH}" \
                         --message-format=json \
                         --target-dir "${MCARGO_TARGET_DIR}" \

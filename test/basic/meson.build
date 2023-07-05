@@ -34,6 +34,9 @@ add_project_arguments(dep_cstdaux.get_variable('cflags').split(' '), language: '
 static_rtestlib = custom_target(
         'rtestlib-static',
         kwargs: sub_cmesoncargo.get_variable('build_dict') + {
+                'env': sub_cmesoncargo.get_variable('build_env') + {
+                        'MCARGO_CRATE_TYPE': 'staticlib',
+                },
                 'input': meson.project_source_root() / 'Cargo.toml',
                 'output': 'libr_testlib.a',
         },
