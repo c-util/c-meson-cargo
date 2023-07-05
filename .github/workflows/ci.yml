@@ -1,3 +1,10 @@
+#
+# Continuous Integration
+#
+# This workflow runs all the unittests and integration tests to ensure the
+# project works as intended.
+#
+
 name: "Continuous Integration"
 
 on:
@@ -5,6 +12,11 @@ on:
     branches: ["main"]
   push:
     branches: ["main", "wip/**"]
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: "bash"
 
 jobs:
   ci:
