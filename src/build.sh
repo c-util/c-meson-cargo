@@ -13,8 +13,8 @@ set -eo pipefail
 #
 # Input Variable Declarations
 #
-# All these variables can be set by the caller. Suitable defaults are provided,
-# but a caller is advised to set all of them unconditionally.
+# All these variables can be set by the caller. Suitable defaults are provided
+# for most, but a caller is advised to set all of them unconditionally.
 #
 
 MCARGO_BIN_CARGO=${MCARGO_BIN_CARGO:-"cargo"}
@@ -53,9 +53,9 @@ fi
 # Run `cargo build` with all specified parameters. Use `--message-format=json`
 # to get formatted output from the build, which we can later parse.
 #
-# If offline mode is requested, we run from within a special directory that
-# has a cargo-configuration with vendoring setup. Note that this means all
-# other paths must be absolute paths.
+# If offline mode is requested, we use vendored sources as specified by the
+# caller. Usually, this requires the caller to invoke `vendor.sh` or
+# `cargo-vendor` before.
 #
 
 _MCARGO_ARGS=()

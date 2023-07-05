@@ -3,8 +3,9 @@
 #
 # Cargo Dist Integration
 #
-# This scripts runs during meson-dist and takes care of vendoring the cargo
-# dependencies just like the custom `vendor` target.
+# This scripts runs during `meson-dist` and takes care of vendoring the Cargo
+# dependencies just like the custom `vendor` target. However, it is designed
+# to use `MESON_DIST_ROOT` as provided by `meson-dist`.
 #
 
 set -eo pipefail
@@ -48,4 +49,4 @@ ${MCARGO_BIN_CARGO} \
                 -- \
                 "${MESON_DIST_ROOT}/${MCARGO_VENDOR_DIR}" \
                 >/dev/null
-echo >&2 "(cargo-configuration output suppressed)"
+echo >&2 "(Cargo configuration output suppressed)"
