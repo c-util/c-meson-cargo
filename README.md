@@ -30,7 +30,7 @@ The requirements for this project are:
  * `cargo >= 1.64`
  * `coreutils`
  * `jq >= 1.6`
- * `meson >= 1.1`
+ * `meson >= 1.0`
 
 ### Repository:
 

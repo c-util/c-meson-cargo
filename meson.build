@@ -6,7 +6,7 @@ project(
         'c-meson-cargo',
         'c',
         license: 'Apache',
-        meson_version: '>=1.1.0',
+        meson_version: '>=1.0.0',
         version: '1.0.0',
 )
 project_description = 'Meson Integration of Cargo based Rust Code'
