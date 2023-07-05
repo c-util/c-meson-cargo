@@ -6,6 +6,7 @@ description = "Internal rust utilities of Testlib"
 edition = "2021"
 license = "MIT OR Apache-2.0 OR LGPL-2.1-or-later"
 publish = false
+rust-version = "1.64"
 
 [lib]
 path = "lib.rs"
