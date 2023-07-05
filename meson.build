@@ -81,40 +81,44 @@ use_vendordir = get_option('vendordir')
 # Custom Build Target Skeleton
 #
 
-target_dict_build = {
+build_cmd = [bin_build, '@OUTDIR@', '@INPUT0@']
+build_env = {
+        'MCARGO_BIN_CARGO': bin_cargo.full_path(),
+        'MCARGO_BIN_CP': bin_cp.full_path(),
+        'MCARGO_BIN_JQ': bin_jq.full_path(),
+        'MCARGO_OFFLINE': use_vendor,
+        'MCARGO_TARGET_DIR': meson.project_build_root() / 'cargo-target',
+        'MCARGO_VENDOR_DIR': meson.global_source_root() / use_vendordir,
+} + (use_profile == '' ? {} : {
+        'MCARGO_PROFILE': use_profile,
+}) + (use_target == '' ? {} : {
+        'MCARGO_TARGET': use_target,
+})
+
+build_dict = {
         'build_always_stale': true,
+        'command': build_cmd,
         'console': true,
-        'env': {
-                'MCARGO_BIN_CARGO': bin_cargo.full_path(),
-                'MCARGO_BIN_CP': bin_cp.full_path(),
-                'MCARGO_BIN_JQ': bin_jq.full_path(),
-                'MCARGO_OFFLINE': use_vendor,
-                'MCARGO_TARGET_DIR': meson.project_build_root() / 'cargo-target',
-                'MCARGO_VENDOR_DIR': meson.global_source_root() / use_vendordir,
-        } + (use_profile == '' ? {} : {
-                'MCARGO_PROFILE': use_profile,
-        }) + (use_target == '' ? {} : {
-                'MCARGO_TARGET': use_target,
-        }),
-        'command': [
-                bin_build, '@OUTDIR@', '@INPUT0@',
-        ],
+        'env': build_env,
 }
 
 #
 # Vendoring Target
 #
 
-target_cmd_vendor = [bin_vendor]
-target_dict_vendor = {
-        'env': {
-                'MCARGO_BIN_CARGO': bin_cargo.full_path(),
-                'MCARGO_VENDOR_DIR': meson.global_source_root() / use_vendordir,
-        },
+vendor_cmd = [bin_vendor]
+vendor_env = {
+        'MCARGO_BIN_CARGO': bin_cargo.full_path(),
+        'MCARGO_VENDOR_DIR': meson.global_source_root() / use_vendordir,
+}
+
+vendor_dict = {
+        'command': vendor_cmd,
+        'env': vendor_env,
 }
 
 #
 # Custom Dist Target Skeleton
 #
 
-target_cmd_dist = [bin_dist, bin_cargo.full_path(), use_vendordir]
+dist_cmd = [bin_dist, bin_cargo.full_path(), use_vendordir]

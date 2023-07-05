@@ -33,7 +33,7 @@ add_project_arguments(dep_cstdaux.get_variable('cflags').split(' '), language: '
 
 static_rtestlib = custom_target(
         'rtestlib-static',
-        kwargs: sub_cmesoncargo.get_variable('target_dict_build') + {
+        kwargs: sub_cmesoncargo.get_variable('build_dict') + {
                 'input': meson.project_source_root() / 'Cargo.toml',
                 'output': 'libr_testlib.a',
         },
@@ -46,15 +46,15 @@ dep_rtestlib = declare_dependency(
 )
 
 meson.add_dist_script(
-        sub_cmesoncargo.get_variable('target_cmd_dist') + [
+        sub_cmesoncargo.get_variable('dist_cmd') + [
                 meson.project_source_root() / 'Cargo.toml',
         ],
 )
 
 run_target(
         'vendor',
-        kwargs: sub_cmesoncargo.get_variable('target_dict_vendor') + {
-                'command': sub_cmesoncargo.get_variable('target_cmd_vendor') + [
+        kwargs: sub_cmesoncargo.get_variable('vendor_dict') + {
+                'command': sub_cmesoncargo.get_variable('vendor_cmd') + [
                         meson.project_source_root() / 'Cargo.toml',
                 ],
         },
