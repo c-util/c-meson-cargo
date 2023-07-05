@@ -39,7 +39,7 @@ jobs:
       run: meson test -v -C build
     - name: "Run Dist"
       working-directory: "./test/basic/"
-      run: meson dist -v -C build --include-subprojects
+      run: meson dist -C build --include-subprojects
     - name: "Build Cargo Targets"
       working-directory: "./test/basic/"
       run: cargo build --verbose --all-targets
