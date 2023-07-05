@@ -78,7 +78,7 @@ endif
 use_vendordir = get_option('vendordir')
 
 #
-# Custom Build Target Skeleton
+# Build Target
 #
 
 build_cmd = [bin_build, '@OUTDIR@', '@INPUT0@']
@@ -118,7 +118,7 @@ vendor_dict = {
 }
 
 #
-# Custom Dist Target Skeleton
+# Dist Target
 #
 
 dist_cmd = [bin_dist, bin_cargo.full_path(), use_vendordir]
